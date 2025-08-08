@@ -30,29 +30,29 @@ class Client
         $this->apiToken = $apiToken;
     }
 
-    public function delete($method, $args = [], $timeout = 10): array
+    public function delete($path, $args = [], $timeout = 10): array
     {
-        return $this->makeRequest('delete', $method, [RequestOptions::FORM_PARAMS => $args], $timeout);
+        return $this->makeRequest('delete', $path, [RequestOptions::FORM_PARAMS => $args], $timeout);
     }
 
-    public function get($method, $args = [], $timeout = 10): array
+    public function get($path, $args = [], $timeout = 10): array
     {
-        return $this->makeRequest('get', $method, [RequestOptions::QUERY => $args], $timeout);
+        return $this->makeRequest('get', $path, [RequestOptions::QUERY => $args], $timeout);
     }
 
-    public function patch($method, $args = [], $timeout = 10): array
+    public function patch($path, $args = [], $timeout = 10): array
     {
-        return $this->makeRequest('patch', $method, [RequestOptions::FORM_PARAMS => $args], $timeout);
+        return $this->makeRequest('patch', $path, [RequestOptions::FORM_PARAMS => $args], $timeout);
     }
 
-    public function post($method, $args = [], $timeout = 10): array
+    public function post($path, $args = [], $timeout = 10): array
     {
-        return $this->makeRequest('post', $method, [RequestOptions::FORM_PARAMS => $args], $timeout);
+        return $this->makeRequest('post', $path, [RequestOptions::FORM_PARAMS => $args], $timeout);
     }
 
-    public function put($method, $args = [], $timeout = 10): array
+    public function put($path, $args = [], $timeout = 10): array
     {
-        return $this->makeRequest('put', $method, [RequestOptions::FORM_PARAMS => $args], $timeout);
+        return $this->makeRequest('put', $path, [RequestOptions::FORM_PARAMS => $args], $timeout);
     }
 
     public function setApiEndpoint(string $apiEndpoint): void
@@ -78,10 +78,10 @@ class Client
     /**
      * Performs the underlying HTTP request. Not very exciting.
      *
-     * @param string $$http_verb The HTTP verb to use: get, post, put, patch, delete
-     * @param string $path       The API method to be called
-     * @param array  $args       Assoc array of parameters to be passed
-     * @param mixed  $timeout
+     * @param string   $method  The HTTP verb to use: get, post, put, patch, delete
+     * @param string   $path    The API method to be called
+     * @param array    $args    Assoc array of parameters to be passed
+     * @param int|null $timeout
      *
      * @return array Assoc array of decoded result
      */
