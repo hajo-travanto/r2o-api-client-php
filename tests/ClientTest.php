@@ -19,6 +19,51 @@ class ClientTest extends AbstractTestCase
         self::assertSame(5, $client->getTimeout());
     }
 
+    public function testFluentInterface(): void
+    {
+        $client = $this->getApiClient();
+
+        $result = $client->setTimeout(30);
+        self::assertSame($client, $result, 'setTimeout should return $this');
+
+        $result = $client->setLanguage('de-DE');
+        self::assertSame($client, $result, 'setLanguage should return $this');
+
+        $result = $client->setApiEndpoint('https://api.ready2order.com/v1');
+        self::assertSame($client, $result, 'setApiEndpoint should return $this');
+    }
+
+    public function testFluentInterfaceChaining(): void
+    {
+        $client = $this->getApiClient();
+
+        // Test that methods can be chained
+        $result = $client
+            ->setTimeout(15)
+            ->setLanguage('en-US')
+            ->setApiEndpoint($_ENV['R2O_API_ENDPOINT']);
+
+        self::assertSame($client, $result);
+        self::assertSame(15, $client->getTimeout());
+
+        // Verify the client still works after chaining
+        $company = $client->get('company');
+        self::assertArrayHasKey('company_name', $company);
+    }
+
+    public function testPerRequestTimeoutOverridesDefault(): void
+    {
+        $client = $this->getApiClient();
+        $client->setTimeout(5);
+
+        // Default timeout is 5, but per-request timeout of 30 should work
+        $company = $client->get('company', [], 30);
+        self::assertArrayHasKey('company_name', $company);
+
+        // Verify default timeout wasn't changed
+        self::assertSame(5, $client->getTimeout());
+    }
+
     /**
      * @dataProvider languageDataProvider
      *
