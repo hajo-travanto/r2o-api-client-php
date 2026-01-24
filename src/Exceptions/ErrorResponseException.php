@@ -11,7 +11,7 @@ class ErrorResponseException extends Exception
 {
     protected ?array $data = null;
 
-    public function __construct(string $message = '', ?array $data = null, Throwable $previous = null)
+    public function __construct(string $message = '', ?array $data = null, ?Throwable $previous = null)
     {
         if ($data) {
             $this->data = $data;
