@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-
 $root = __DIR__;
 
 $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->in($root);
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR1' => true,
@@ -41,7 +40,6 @@ return PhpCsFixer\Config::create()
         ],
         'phpdoc_to_comment' => false,
         'method_argument_space' => ['on_multiline' => 'ignore'],
-        'php_unit_ordered_covers' => false,
         'no_superfluous_elseif' => false,
     ])
     ->setCacheFile(sys_get_temp_dir() . '/php_cs.cache')
