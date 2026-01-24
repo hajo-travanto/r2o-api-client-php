@@ -28,9 +28,6 @@ class ClientTest extends AbstractTestCase
 
         $result = $client->setLanguage('de-DE');
         self::assertSame($client, $result, 'setLanguage should return $this');
-
-        $result = $client->setApiEndpoint('https://api.ready2order.com/v1');
-        self::assertSame($client, $result, 'setApiEndpoint should return $this');
     }
 
     public function testFluentInterfaceChaining(): void
@@ -40,8 +37,7 @@ class ClientTest extends AbstractTestCase
         // Test that methods can be chained
         $result = $client
             ->setTimeout(15)
-            ->setLanguage('en-US')
-            ->setApiEndpoint($_ENV['R2O_API_ENDPOINT']);
+            ->setLanguage('en-US');
 
         self::assertSame($client, $result);
         self::assertSame(15, $client->getTimeout());

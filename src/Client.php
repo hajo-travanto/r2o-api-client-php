@@ -19,8 +19,10 @@ use ready2order\Exceptions\ResourceNotFoundException;
  */
 class Client
 {
+    private const DEFAULT_ENDPOINT = 'https://api.ready2order.com/v1';
+
     private string $apiToken;
-    private string $apiEndpoint = 'https://api.ready2order.com/v1';
+    private string $apiEndpoint;
     private int $timeout = 10;
     private string $language = 'en-US';
     private GuzzleClient $httpClient;
@@ -28,11 +30,13 @@ class Client
     /**
      * Create a new ready2order API client instance.
      *
-     * @param string $apiToken Your ready2order Account Token for API authentication
+     * @param string      $apiToken    Your ready2order Account Token for API authentication
+     * @param null|string $apiEndpoint Custom API endpoint URL (defaults to production API)
      */
-    public function __construct(string $apiToken)
+    public function __construct(string $apiToken, ?string $apiEndpoint = null)
     {
         $this->apiToken = $apiToken;
+        $this->apiEndpoint = $apiEndpoint ?? self::DEFAULT_ENDPOINT;
         $this->httpClient = new GuzzleClient([
             RequestOptions::HEADERS => [
                 'Authorization' => $this->apiToken,
@@ -131,20 +135,6 @@ class Client
     public function put($path, $args = [], $timeout = 10): array
     {
         return $this->makeRequest('put', $path, [RequestOptions::FORM_PARAMS => $args], $timeout);
-    }
-
-    /**
-     * Set a custom API endpoint URL.
-     *
-     * @param string $apiEndpoint Base URL for API requests (e.g., 'https://api.ready2order.com/v1')
-     *
-     * @return $this
-     */
-    public function setApiEndpoint(string $apiEndpoint): self
-    {
-        $this->apiEndpoint = $apiEndpoint;
-
-        return $this;
     }
 
     /**
