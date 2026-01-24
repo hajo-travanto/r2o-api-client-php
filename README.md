@@ -86,11 +86,10 @@ $client->setLanguage('en-US'); // English (default)
 
 ### Custom API Endpoint
 
-For testing or custom deployments:
+For testing or custom deployments, pass the endpoint as the second constructor parameter:
 
 ```php
-$client = new Client('your-token');
-$client->setApiEndpoint('https://custom-api.example.com/v1');
+$client = new Client('your-token', 'https://custom-api.example.com/v1');
 ```
 
 ## Error Handling

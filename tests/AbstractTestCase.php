@@ -39,8 +39,7 @@ abstract class AbstractTestCase extends TestCase
             }
 
             // initialize API wrapper
-            $this->api = new Client($accountToken);
-            $this->api->setApiEndpoint($endpoint);
+            $this->api = new Client($accountToken, $endpoint);
         }
 
         return $this->api;
