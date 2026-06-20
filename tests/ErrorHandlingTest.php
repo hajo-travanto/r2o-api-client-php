@@ -9,6 +9,7 @@ use ready2order\Exceptions\ResourceNotFoundException;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class ErrorHandlingTest extends AbstractTestCase
@@ -23,13 +24,13 @@ class ErrorHandlingTest extends AbstractTestCase
             $exceptionThrown = true;
             $data = $e->getData();
 
-            $this->assertNotNull($data, 'No data in exception!');
+            self::assertNotNull($data, 'No data in exception!');
 
-            $this->assertTrue($data['error']);
-            $this->assertEquals('errors.validation.failed', $data['code']);
+            self::assertTrue($data['error']);
+            self::assertEquals('errors.validation.failed', $data['code']);
         }
 
-        $this->assertTrue($exceptionThrown);
+        self::assertTrue($exceptionThrown);
     }
 
     /**
@@ -40,10 +41,10 @@ class ErrorHandlingTest extends AbstractTestCase
         $method = mb_strtolower($method);
         $exceptionThrown = false;
 
-        $this->expectException(ResourceNotFoundException::class);
+        self::expectException(ResourceNotFoundException::class);
         $this->getApiClient()->{$method}('invalid-endpoint');
 
-        $this->assertTrue($exceptionThrown);
+        self::assertTrue($exceptionThrown);
     }
 
     public function getHttpMethods(): array

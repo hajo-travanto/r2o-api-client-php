@@ -17,7 +17,7 @@ abstract class AbstractTestCase extends TestCase
         parent::setUp();
 
         // Enable strict error reporting
-        error_reporting(E_ALL);
+        error_reporting(\E_ALL);
 
         // Load .env file
         $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
@@ -31,16 +31,15 @@ abstract class AbstractTestCase extends TestCase
             $endpoint = $_ENV['R2O_API_ENDPOINT'];
 
             if (empty($accountToken)) {
-                $this->fail('No R2O_API_TOKEN set!');
+                self::fail('No R2O_API_TOKEN set!');
             }
 
             if (empty($endpoint)) {
-                $this->fail('No R2O_API_ENDPOINT set!');
+                self::fail('No R2O_API_ENDPOINT set!');
             }
 
             // initialize API wrapper
-            $this->api = new Client($accountToken);
-            $this->api->setApiEndpoint($endpoint);
+            $this->api = new Client($accountToken, $endpoint);
         }
 
         return $this->api;

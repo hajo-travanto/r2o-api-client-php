@@ -6,6 +6,7 @@ namespace ready2order\Tests;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class AccountTest extends AbstractTestCase
@@ -14,6 +15,6 @@ class AccountTest extends AbstractTestCase
     {
         $info = $this->getApiClient()->get('company');
 
-        $this->assertArrayHasKey('company_name', $info);
+        self::assertArrayHasKey('company_name', $info);
     }
 }
